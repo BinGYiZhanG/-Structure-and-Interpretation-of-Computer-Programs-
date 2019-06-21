@@ -182,4 +182,13 @@ AC代码--递归：
 
 不知道迭代了多少次，看情况吧.
 
+1.16 网上代码
+(define (even? n)
+  (= (remainder n 2) 0))
+
+(define (fast_iter_expt n p)
+  (cond ((= n 1) p)
+        ((even? n) (fast_iter_expt (/ n 2)(* p p)))
+        (else (* p (fast_iter_expt (- n 1) p)))))
+
 
