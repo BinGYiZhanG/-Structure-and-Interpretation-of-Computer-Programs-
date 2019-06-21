@@ -1,0 +1,28 @@
+练习1.3：
+#lang racket
+(define a 2)
+(define b 5)
+(define c 1)
+(define (a-b-min a b)
+  (cond ((> a b) b)
+        ((< a b) a)
+        ((= a b) a)))
+(define (a-b-max a b)
+  (cond ((> a b) a)
+        ((< a b) b)
+        ((= a b) a)))
+
+(define abmin (a-b-min a b))
+(define abmax (a-b-max a b))
+
+(define (res-sum abmin abmax c)
+  (cond ((> abmin c) (+ abmin abmax))
+        ((< abmax c) (+ abmax c))
+        (else (+ abmax c))))
+
+
+out:
+> (res-sum abmin abmax c)
+7
+
+注：cond中else的用法
