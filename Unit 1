@@ -1,5 +1,7 @@
 埋下一个伏笔：正则序也可以成为非常有用的工具，我们将在第3章和第4章研究它的某些内在性质(P11,关于正则序的叙述)
 前两章的所有过程应用，都是应用序，
+关于正则序，应用序不是很懂,
+
 #lang racket
 (define (square x)(* x x))
 
@@ -52,3 +54,35 @@ out:
 #t
 
 注意：如何调用:(>= x y)
+
+
+1.1.7 实例：采用牛顿法求平方根
+#lang racket
+;参数：一个被开方数，一个猜测值
+(define (sqrt-iter guess x)
+  (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x)
+                 x)))
+;改进猜测的方式：就是求出他与被开方数以上一个猜测的平均值:
+(define (improve guess x)
+  (average guess (/ x guess)))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (good-enough? guess x)
+  (< (abs (- (square guess) x)) 0.001))
+
+(define (square x)(* x x))
+
+(define (sqrt x)
+  (sqrt-iter 1.0 x))
+  
+> (sqrt 9)
+3.00009155413138
+> (square (sqrt 1000))
+1000.000369924366
+
+
+
