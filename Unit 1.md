@@ -169,9 +169,9 @@ out:
 (define (square x)(* x x))
 ```
 ## 注:(prime n)不能写在最后，要写到程序开头才行，应该和c语言调用函数写在被调用函数之后一样
-##即:调用函数要写在被调函数之前
+## 即:调用函数要写在被调函数之前
 
-#####费马检查
+##### 费马检查
 ```scheme
 (define (fast-prime n times)
   (cond ((= times 0) true)
