@@ -151,7 +151,7 @@ out:
 ```
 
 #### 1.2.6 素数检测
-···scheme
+```scheme
 (define (prime n)
   (= n (smallest-divisor n)))
 
