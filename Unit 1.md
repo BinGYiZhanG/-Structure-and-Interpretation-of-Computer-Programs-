@@ -1,6 +1,6 @@
-埋下一个伏笔：正则序也可以成为非常有用的工具，我们将在第3章和第4章研究它的某些内在性质(P11,关于正则序的叙述)
-前两章的所有过程应用，都是应用序，
-关于正则序，应用序不是很懂,
+### 埋下一个伏笔：正则序也可以成为非常有用的工具，我们将在第3章和第4章研究它的某些内在性质(P11,关于正则序的叙述)
+### 前两章的所有过程应用，都是应用序，
+### 关于正则序，应用序不是很懂,
 ```scheme
 #lang racket
 (define (square x)(* x x))
@@ -150,3 +150,52 @@ out:
       (gcd b (remainder a b))))
 ```
 
+#### 1.2.6 素数检测
+···scheme
+(define (prime n)
+  (= n (smallest-divisor n)))
+
+(define (smallest-divisor n)
+  (find-divisor n 2))
+
+(define (find-divisor n test-divisor)
+  (cond ((> (square test-divisor) n) n)
+        ((divides? test-divisor n) test-divisor)
+        (else (find-divisor n (+ test-divisor 1)))))
+
+(define (divides? a b)
+  (= (remainder b a) 0))
+
+(define (square x)(* x x))
+```
+## 注:(prime n)不能写在最后，要写到程序开头才行，应该和c语言调用函数写在被调用函数之后一样
+##即:调用函数要写在被调函数之前
+
+#####费马检查
+```scheme
+(define (fast-prime n times)
+  (cond ((= times 0) true)
+        ((fermat-test n) (fast-prime n (- times 1)))
+        (else false)))
+
+(define (fermat-test n)
+  (define (try-it a)
+    (= (expmod a n n) a));检查a的n次幂取模是否等于a
+  (try-it (+ 1 (random (- n 1)))));随机数a的选取通过过程random完成
+
+
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m)
+         )
+  )
+)
+
+> (fast-prime 6 2)
+#t
+```
