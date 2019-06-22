@@ -1,7 +1,7 @@
 埋下一个伏笔：正则序也可以成为非常有用的工具，我们将在第3章和第4章研究它的某些内在性质(P11,关于正则序的叙述)
 前两章的所有过程应用，都是应用序，
 关于正则序，应用序不是很懂,
-
+```scheme
 #lang racket
 (define (square x)(* x x))
 
@@ -10,21 +10,24 @@
 
 (define (f a)
   (sum-of-squares(+ a 1)(* a 2)))
+```
 
-
-2，绝对值
-a,
+#### 2，绝对值
+##### a,
+```scheme
 (define (abs x)
   (cond ((> x 0) x)
         ((= x 0) 0)
         ((< x 0) (- x))))
-
-b,
+```
+##### b,
+```scheme
 (define (abs x)
   (cond ((< x 0)(- x))
         (else x)))
-
-3，逻辑符合运算符
+```
+#### 3，逻辑符合运算符
+```scheme
 (define x 8)
 (and (> x 5) (< x 10))
 
@@ -36,8 +39,9 @@ out:
 
 out:
 #f
-
-b,定义逻辑复合运算符
+```
+##### b,定义逻辑复合运算符
+```scheme
 (define (>= x y)
   (or (> x y) (= x y)))
 (define x 10)
@@ -52,11 +56,12 @@ b,定义逻辑复合运算符
 
 out:
 #t
+```
+##### 注意：如何调用:(>= x y)
 
-注意：如何调用:(>= x y)
 
-
-1.1.7 实例：采用牛顿法求平方根
+#### 1.1.7 实例：采用牛顿法求平方根
+```scheme
 #lang racket
 ;参数：一个被开方数，一个猜测值
 (define (sqrt-iter guess x)
@@ -83,15 +88,18 @@ out:
 3.00009155413138
 > (square (sqrt 1000))
 1000.000369924366
-
-斐波那契数列
-a,
+```
+#### 斐波那契数列
+##### a,
+```scheme
 (define (fib n)
   (cond ((= n 0) 0)
         ((= n 1) 1)
         (else (+ (fib (- n 1))
                  (fib (- n 2))))))
-b,
+```
+##### b,常数时间
+```scheme
 (define (fib n)
   (fib-iter 1 0 n))
 
@@ -99,16 +107,20 @@ b,
   (if (= count 0)
       b
       (fib-iter (+ a b) a (- count 1))))
+ ```
       
-      
-1.2.4 求幂
+#### 1.2.4 求幂
+##### a.递归法
+```scheme
 (define (expt b n)
   (if (= n 0)
       1
       (* b (expt b (- n 1)))
   )
 )
-
+```
+##### b.迭代法
+```scheme
 (define (expt b n)
   (expt-iter b n 1))
 
@@ -118,7 +130,9 @@ b,
       (expt-iter b
                  (- counter 1)
                  (* b product))))
-                 
+```
+##### c.二分法   
+```scheme
 (define (fast-expt b n)
   (cond ((= n 0) 1)
         ((even? n)(square (fast-expt b (/ n 2))))
@@ -127,7 +141,12 @@ b,
 )
 
 (define (square x)(* x x))
-
-
-
+```
+#### 1.2.5最大公约数
+```scheme
+(define (gcd a b)
+  (if (=  b 0)
+      a
+      (gcd b (remainder a b))))
+```
 
